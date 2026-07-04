@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KC VISION - Seu Entretenimento Sem Limites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #0b0f19; 
+            --bg-card: #131a26; 
+            --bg-card-featured: #172233; 
+            --primary-gold: #cca43b; 
+            --gold-hover: #b38f32;
+            --gold-light: rgba(204, 164, 59, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #8fa0b5;
+            --whatsapp-color: #25d366;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Botão Flutuante do WhatsApp */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-color);
+            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            transition: transform 0.2s, background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            background-color: #1ebd57;
+        }
+
+        /* Barra de Navegação Superior Fixa e Borrada */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            background-color: rgba(11, 15, 25, 0.75); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-gold);
+        }
+
+        .btn-nav-action {
+            background-color: var(--primary-gold);
+            color: #ffffff;
+            padding: 10px 22px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 14px rgba(204, 164, 59, 0.3);
+        }
+
+        .btn-nav-action:hover {
+            background-color: var(--gold-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Split */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-image: url('foto.webp');
+            background-size: cover;
+            background-position: right center;
+            background-repeat: no-repeat;
+            padding-top: 140px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(11, 15, 25, 1) 0%, rgba(11, 15, 25, 0.85) 45%, rgba(11, 15, 25, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 580px;
+            text-align: left;
+        }
+
+        .logo-under-menu {
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .logo-under-menu img {
+            max-height: 200px;
+            margin-top: -80px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--gold-light);
+            color: var(--primary-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(204, 164, 59, 0.25);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            color: var(--primary-gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-main {
+            background-color: var(--primary-gold);
+            color: #ffffff;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(204, 164, 59, 0.4);
+        }
+
+        .btn-main:hover {
+            background-color: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(204, 164, 59, 0.5);
+        }
+
+        .btn-packages-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.2s;
+        }
+
+        .btn-packages-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        .btn-packages-link i {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+        }
+
+        /* Grid de Conteúdo */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* Recursos Técnicos */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 90px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            padding: 30px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-gold);
+        }
+
+        .feature-card i {
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Seção de Preços */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(204, 164, 59, 0.3);
+        }
+
+        .price-card.featured {
+            background-color: var(--bg-card-featured);
+            border: 3px solid var(--primary-gold);
+            box-shadow: 0 25px 50px rgba(204, 164, 59, 0.25);
+            transform: scale(1.03); 
+            z-index: 10;
+        }
+        
+        .price-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #d4af37, var(--primary-gold));
+            color: #0b0f19;
+            font-weight: 800;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(204, 164, 59, 0.4);
+        }
+
+        .plan-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .featured .plan-name {
+            color: var(--primary-gold);
+            font-size: 1.6rem;
+        }
+
+        .currency {
+            font-size: 1.2rem;
+            vertical-align: super;
+            font-weight: 600;
+        }
+
+        .amount {
+            font-size: 3.2rem;
+            font-weight: 800;
+        }
+        
+        .featured .amount {
+            font-size: 3.6rem;
+        }
+
+        .period {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .impact-phrasing {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .bonus-badge {
+            margin-top: 10px;
+            background-color: rgba(37, 211, 102, 0.15);
+            color: #25d366;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+
+        .details-list {
+            list-style: none;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        .details-list li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .details-list li i {
+            color: var(--primary-gold);
+        }
+
+        .btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #ffffff;
+            color: var(--bg-main);
+        }
+
+        .price-card.featured .btn-whatsapp {
+            background-color: var(--primary-gold);
+            color: #ffffff;
+            border: none;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(204, 164, 59, 0.3);
+        }
+
+        .price-card.featured .btn-whatsapp:hover {
+            background-color: var(--gold-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(204, 164, 59, 0.5);
+        }
+
+        /* Responsividade */
+        @media (max-width: 990px) {
+            .hero {
+                background-position: 65% center;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .hero::before {
+                background: linear-gradient(180deg, rgba(11, 15, 25, 0.85) 0%, rgba(11, 15, 25, 0.95) 100%);
+            }
+            .logo-under-menu {
+                text-align: center;
+                margin: 0 auto 20px auto;
+            }
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-main, .btn-packages-link {
+                width: 100%;
+                justify-content: center;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .price-card.featured {
+                transform: none;
+            }
+            .price-card.featured:hover {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/5594991292934" target="_blank" class="floating-whatsapp" title="Fale no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Recursos</a>
+                <a href="#pacotes" class="nav-link">Planos</a>
+                <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20conhecer%20os%20planos." class="btn-nav-action">Assinar agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                
+                <div class="logo-under-menu">
+                    <img src="kcvision.png" alt="KC VISION Logo">
+                </div>
+
+                <div class="hero-badge">
+                    <i class="fa-solid fa-bolt"></i> Experimente KC Vision 2026
+                </div>
+                <h1>Experimente o melhor do <span>Conteúdo Privado</span> totalmente grátis</h1>
+                <p>Canais ao vivo, filmes e séries em HD e 4K. Um catálogo completo na TV, no celular ou no computador — estabilidade e suporte quando precisar.</p>
+                
+                <div class="hero-buttons">
+                    <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20solicitar%20meu%20teste%20grátis." target="_blank" class="btn-main">
+                        Solicitar Teste Grátis
+                    </a>
+                    <a href="#pacotes" class="btn-packages-link">
+                        Ver pacotes <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section id="features" class="features">
+            <div class="feature-card">
+                <i class="fa-solid fa-display"></i>
+                <h3>Qualidade Premium</h3>
+                <p>Imagens limpas e otimizadas em SD, HD e Ultra HD 4K adaptáveis para sua internet.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-clapperboard"></i>
+                <h3>Conteúdo Atualizado</h3>
+                <p>Filmes, séries e documentários recém-lançados adicionados de forma constante.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Estável e Seguro</h3>
+                <p>Estrutura inteligente multiservidores focada em máxima performance e menos travas.</p>
+            </div>
+        </section>
+
+        <section id="pacotes">
+            <div class="section-title">
+                <h2>Nossos Planos</h2>
+                <p>Escolha o plano ideal. Todos com suporte para 2 telas simultâneas.</p>
+            </div>
+
+            <div class="pricing-grid">
+                
+                <div class="price-card">
+                    <div>
+                        <div class="plan-name">Mensal</div>
+                        <div class="price-box" style="margin-bottom: 20px;">
+                            <span class="currency">R$</span>
+                            <span class="amount">35</span>
+                            <span class="period">/mês</span>
+                        </div>
+                        <div class="impact-phrasing">Faça seu teste agora!</div>
+                        <ul class="details-list">
+                            <li><i class="fa-solid fa-check"></i> Suporte a 2 Telas</li>
+                            <li><i class="fa-solid fa-check"></i> Canais SD, HD e 4K</li>
+                            <li><i class="fa-solid fa-check"></i> +45 mil Conteúdos</li>
+                            <li><i class="fa-solid fa-check"></i> Sistema Multiservidor</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20solicitar%20um%20teste%20para%20o%20Plano%20Mensal." target="_blank" class="btn-whatsapp">
+                        Solicitar Teste
+                    </a>
+                </div>
+
+                <div class="price-card featured">
+                    <div class="badge">Oferta Imperdível</div>
+                    <div>
+                        <div class="plan-name">Trimestral</div>
+                        <div class="price-box" style="margin-bottom: 20px;">
+                            <span class="currency">R$</span>
+                            <span class="amount">100</span>
+                            <span class="period">/trimestre</span>
+                            <div>
+                                <span class="bonus-badge"><i class="fa-solid fa-fire"></i> +1 Mês Grátis</span>
+                            </div>
+                        </div>
+                        <div class="impact-phrasing">Melhor Custo-Benefício!</div>
+                        <ul class="details-list">
+                            <li><i class="fa-solid fa-check"></i> <strong>Suporte a 2 Telas</strong></li>
+                            <li><i class="fa-solid fa-check"></i> Canais SD, HD e 4K</li>
+                            <li><i class="fa-solid fa-check"></i> +45 mil Conteúdos</li>
+                            <li><i class="fa-solid fa-check"></i> Prioridade no Servidor</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20o%20Plano%20Trimestral%20promocional!" target="_blank" class="btn-whatsapp">
+                        Garantir Plano Trimestral
+                    </a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <div class="plan-name">Semestral</div>
+                        <div class="price-box" style="margin-bottom: 20px;">
+                            <span class="currency">R$</span>
+                            <span class="amount">160</span>
+                            <span class="period">/semestre</span>
+                        </div>
+                        <div class="impact-phrasing">Faça seu teste agora!</div>
+                        <ul class="details-list">
+                            <li><i class="fa-solid fa-check"></i> Suporte a 2 Telas</li>
+                            <li><i class="fa-solid fa-check"></i> Canais SD, HD e 4K</li>
+                            <li><i class="fa-solid fa-check"></i> +45 mil Conteúdos</li>
+                            <li><i class="fa-solid fa-check"></i> Sistema Multiservidor</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20solicitar%20um%20teste%20para%20o%20Plano%20Semestral." target="_blank" class="btn-whatsapp">
+                        Solicitar Teste
+                    </a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <div class="plan-name">Anual</div>
+                        <div class="price-box" style="margin-bottom: 20px;">
+                            <span class="currency">R$</span>
+                            <span class="amount">290</span>
+                            <span class="period">/ano</span>
+                        </div>
+                        <div class="impact-phrasing">Faça seu teste agora!</div>
+                        <ul class="details-list">
+                            <li><i class="fa-solid fa-check"></i> Suporte a 2 Telas</li>
+                            <li><i class="fa-solid fa-check"></i> Canais SD, HD e 4K</li>
+                            <li><i class="fa-solid fa-check"></i> +45 mil Conteúdos</li>
+                            <li><i class="fa-solid fa-check"></i> Sistema Multiservidor</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/5594991292934?text=Olá!%20Quero%20solicitar%20um%20teste%20para%20o%20Plano%20Anual." target="_blank" class="btn-whatsapp">
+                        Solicitar Teste
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Script para abrir a página direto na seção de planos -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const pacotesSection = document.getElementById('pacotes');
+            if (pacotesSection) {
+                pacotesSection.scrollIntoView({ behavior: 'auto' });
+            }
+        });
+    </script>
+</body>
+</html>
